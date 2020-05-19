@@ -1,0 +1,5 @@
+@EndUserText.label: 'SFH: Travel Service Definition'
+define service ZCAA361_UI_TRAVEL_SFH {
+  expose ZCAA361_C_Travel_SFH as Travel;
+  expose ZCAA361_C_Booking_SFH as Booking;
+}

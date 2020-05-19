@@ -1,0 +1,38 @@
+managed implementation in class zbp_caa361_i_travel_sfh
+unique;
+
+define behavior for ZCAA361_I_Travel_SFH alias Travel
+persistent table ZCAA361_TRA_SFH
+lock master
+//authorization master ( instance )
+etag master Last_Changed_At
+{
+  create;
+  update ( features : instance );
+  delete;
+  association _Booking { create; }
+
+  field ( readonly ) Status;
+  field ( features : instance ) Travel_ID;
+
+
+  action ( features : instance ) bookTravel result [1] $self;
+
+  validation validateDates on save { field begin_date, end_date; }
+
+  determination setInitialStatus on modify { create; }
+
+}
+
+define behavior for ZCAA361_I_Booking_SFH alias Booking
+persistent table zcaa361_book_sfh
+//lock dependent by _Travel
+lock dependent( Travel_ID = Travel_ID )
+//authorization dependent by <association>
+etag master Last_Changed_At
+{
+  update;
+  delete;
+
+  field ( readonly ) Travel_ID;
+}

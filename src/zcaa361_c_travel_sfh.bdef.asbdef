@@ -1,0 +1,18 @@
+projection;
+
+define behavior for ZCAA361_C_Travel_SFH alias Travel
+use etag
+{
+  use create;
+  use update;
+  use delete;
+  use association _BOOKING { create; }
+
+  use action bookTravel;
+}
+
+define behavior for ZCAA361_C_Booking_SFH alias Booking
+{
+  use update;
+  use delete;
+}
